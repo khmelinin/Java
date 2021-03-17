@@ -35,11 +35,17 @@ public class InputUtility {
         while (true) {
             view.printMessage(TeacherView.INPUT_STRING_GENDER_DATA);
             var g = sc.nextLine();
-            while(g.equals("")) g = sc.nextLine();
-            if (g.equals("Male") || g.equals("Female") || g.equals("Another")) {
+            while (g.equals("")) g = sc.nextLine();
+            try {
+//                if (g.equals("Male") || g.equals("Female") || g.equals("Another")) {
+//                    return g;
+//                }
+                if (!g.equals("Male") && !g.equals("Female") && !g.equals("Another"))
+                    throw new Exception(TeacherView.WRONG_INPUT_DATA);
                 return g;
+            } catch (Exception ex) {
+                view.printMessage(ex.getMessage());
             }
-            view.printMessage(TeacherView.WRONG_INPUT_DATA);
         }
     }
 
@@ -49,14 +55,21 @@ public class InputUtility {
     }
 
     public static String inputDiscipline0WithScanner(TeacherView view) {
-        while(true){
+        while (true) {
             view.printMessage(TeacherView.INPUT_STRING_DISCIPLINE_DATA);
             var d = sc.nextLine();
-            while(d.equals("")) d = sc.nextLine();
-            if (!d.equals(" ") && !d.equals("-")) {
+            while (d.equals("")) d = sc.nextLine();
+            try {
+//                if (!d.equals(" ") && !d.equals("-")) {
+//                    return d;
+//                }
+                if (d.equals(" ") || d.equals("-"))
+                    throw new Exception(TeacherView.WRONG_INPUT_DISCIPLINE_DATA);
                 return d;
+                //view.printMessage(TeacherView.WRONG_INPUT_DISCIPLINE_DATA);
+            } catch (Exception ex) {
+                view.printMessage(ex.getMessage());
             }
-            view.printMessage(TeacherView.WRONG_INPUT_DISCIPLINE_DATA);
         }
     }
 

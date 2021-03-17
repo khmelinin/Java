@@ -12,31 +12,38 @@ public class TeacherController {
     public void startMenu() {
         view.printMessage(TeacherView.HELLO);
         while (true) {
-            view.printMessage(TeacherView.MAIN_MENU_SELECT);
-            switch (InputUtility.inputIntValueWithScanner(view)) {
-                case 1:
-                    view.printTeachers(TeacherConverter.convertTeacherArrayToString(model.getArray()));
-                    break;
-                case 2: {
-                    findByCathedra();
-                    break;
+            try {
+                view.printMessage(TeacherView.MAIN_MENU_SELECT);
+                switch (InputUtility.inputIntValueWithScanner(view)) {
+                    case 1:
+                        view.printTeachers(TeacherConverter.convertTeacherArrayToString(model.getArray()));
+                        break;
+                    case 2: {
+                        findByCathedra();
+                        break;
+                    }
+                    case 3: {
+                        findByDiscipline();
+                        break;
+                    }
+                    case 4: {
+                        findByGenderAndPost();
+                        break;
+                    }
+                    case 5:
+                        addTeacher();
+                        break;
+                    case 6:
+                        System.exit(0);
+                        break;
+                    default:
+                        throw new Exception(TeacherView.WRONG_INPUT_DATA);
+                        //view.printMessage(TeacherView.WRONG_INPUT_DATA);
                 }
-                case 3: {
-                    findByDiscipline();
-                    break;
-                }
-                case 4: {
-                    findByGenderAndPost();
-                    break;
-                }
-                case 5:
-                    addTeacher();
-                    break;
-                case 6:
-                    System.exit(0);
-                    break;
-                default:
-                    view.printMessage(TeacherView.WRONG_INPUT_DATA);
+            }
+            catch (Exception ex)
+            {
+                view.printMessage(ex.getMessage());
             }
 
         }

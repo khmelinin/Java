@@ -1,6 +1,8 @@
 package teacher.service;
 
 import teacher.view.TeacherView;
+import teacher.exceptions.WrongDisciplineException;
+import teacher.exceptions.WrongInputException;
 
 import java.util.Scanner;
 
@@ -9,11 +11,17 @@ public class InputUtility {
 
     public static int inputIntValueWithScanner(TeacherView view) {
         view.printMessage(TeacherView.INPUT_INT_DATA);
-        while (!sc.hasNextInt()) {
-            view.printMessage(TeacherView.WRONG_INPUT_DATA + TeacherView.INPUT_INT_DATA);
-            sc.next();
+        while (true) {
+            try {
+                if (!sc.hasNextInt())
+                    throw new WrongInputException();
+                return sc.nextInt();
+            }
+            catch(Exception ex){
+                view.printMessage(ex.getMessage());
+                sc.next();
+            }
         }
-        return sc.nextInt();
     }
 
     public static String inputNameWithScanner(TeacherView view) {
@@ -41,7 +49,7 @@ public class InputUtility {
 //                    return g;
 //                }
                 if (!g.equals("Male") && !g.equals("Female") && !g.equals("Another"))
-                    throw new Exception(TeacherView.WRONG_INPUT_DATA);
+                    throw new WrongInputException();
                 return g;
             } catch (Exception ex) {
                 view.printMessage(ex.getMessage());
@@ -64,7 +72,7 @@ public class InputUtility {
 //                    return d;
 //                }
                 if (d.equals(" ") || d.equals("-"))
-                    throw new Exception(TeacherView.WRONG_INPUT_DISCIPLINE_DATA);
+                    throw new WrongDisciplineException();
                 return d;
                 //view.printMessage(TeacherView.WRONG_INPUT_DISCIPLINE_DATA);
             } catch (Exception ex) {
@@ -82,6 +90,7 @@ public class InputUtility {
         view.printMessage(TeacherView.INPUT_STRING_POST_DATA);
         return sc.next();
     }
+
 
 
 }

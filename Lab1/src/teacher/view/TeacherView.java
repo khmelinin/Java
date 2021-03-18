@@ -13,6 +13,12 @@ public class TeacherView {
     public static final String INPUT_STRING_POST_DATA = "Enter teacher's post = ";
     public static final String INPUT_STRING_DISCIPLINE_DATA = "Enter teacher's discipline = ";
     public static final String NO_RESULTS = "Nothing was found";
+
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_RESET = "\u001B[0m";
+
     public static final String MAIN_MENU_SELECT =
             "\n1. List of teachers\n" +
                     "2. Find teachers by cathedra\n" +

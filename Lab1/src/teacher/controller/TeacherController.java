@@ -1,5 +1,6 @@
 package teacher.controller;
 
+import teacher.exceptions.WrongInputException;
 import teacher.model.TeacherModel;
 import teacher.service.InputUtility;
 import teacher.view.TeacherConverter;
@@ -37,7 +38,7 @@ public class TeacherController {
                         System.exit(0);
                         break;
                     default:
-                        throw new Exception(TeacherView.WRONG_INPUT_DATA);
+                        throw new WrongInputException();
                         //view.printMessage(TeacherView.WRONG_INPUT_DATA);
                 }
             }

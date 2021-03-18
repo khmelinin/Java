@@ -2,7 +2,7 @@ package teacher.model;
 
 public class TeacherModel {
 
-    TeacherArray array;
+    private TeacherArray array;
 
     public TeacherModel() {
         array = new TeacherArray(10, false);
@@ -26,50 +26,38 @@ public class TeacherModel {
     }
 
     public TeacherArray findByCathedra(String c) {
-        TeacherArray tmp = new TeacherArray(10, true);
-        int count = 0;
+        TeacherArray tmp = new TeacherArray(0, true);
         for (int i = 0; i < array.getSize(); i++) {
             if (array.getArray()[i].getCathedra().equals(c)) {
-                tmp.getArray()[count] = array.getArray()[i];
-                count++;
+                tmp.addTeacher(array.getArray()[i]);
             }
         }
-        TeacherArray tmp1 = new TeacherArray(count, true);
-        System.arraycopy(tmp.getArray(), 0, tmp1.getArray(), 0, tmp1.getSize());
-        return tmp1;
+        return tmp;
 
     }
 
     public TeacherArray findByDiscipline(String d) {
-        TeacherArray tmp = new TeacherArray(10, true);
-        int count = 0;
+        TeacherArray tmp = new TeacherArray(0, true);
         for (int i = 0; i < array.getSize(); i++) {
             for (int j = 0; j < array.getArray()[i].getDisciplines().length; j++) {
                 if (array.getArray()[i].getDisciplines()[j].equals(d)) {
-                    tmp.getArray()[count] = array.getArray()[i];
-                    count++;
+                    tmp.addTeacher(array.getArray()[i]);
                     continue;
                 }
             }
         }
-        TeacherArray tmp1 = new TeacherArray(count, true);
-        System.arraycopy(tmp.getArray(), 0, tmp1.getArray(), 0, tmp1.getSize());
-        return tmp1;
+        return tmp;
 
     }
 
     public TeacherArray findByGenderAndPost(String g, String p) {
-        TeacherArray tmp = new TeacherArray(10, true);
-        int count = 0;
+        TeacherArray tmp = new TeacherArray(0, true);
         for (int i = 0; i < array.getSize(); i++) {
             if (array.getArray()[i].getGender().equals(g) && array.getArray()[i].getPost().equals(p)) {
-                tmp.getArray()[count] = array.getArray()[i];
-                count++;
+                tmp.addTeacher(array.getArray()[i]);
             }
         }
-        TeacherArray tmp1 = new TeacherArray(count, true);
-        System.arraycopy(tmp.getArray(), 0, tmp1.getArray(), 0, tmp1.getSize());
-        return tmp1;
+        return tmp;
 
     }
 }

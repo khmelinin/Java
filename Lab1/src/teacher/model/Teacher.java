@@ -4,13 +4,13 @@ import java.util.Arrays;
 
 public class Teacher {
 
-    String surname;
-    String name;
-    String patronymic;
-    String gender;
-    String[] disciplines;
-    String cathedra;
-    String post;
+    private String surname;
+    private String name;
+    private String patronymic;
+    private String gender;
+    private String[] disciplines;
+    private String cathedra;
+    private String post;
 
     public Teacher() {
 

@@ -3,13 +3,13 @@ package teacher.model;
 import java.util.Arrays;
 
 public class TeacherArray {
-    int size = 0;
-    int maxsize = 30;
-    Teacher[] teacherArray = new Teacher[maxsize];
+    private int size = 0;
+    private int maxsize = 30;
+    private Teacher[] teacherArray = new Teacher[maxsize];
 
     public TeacherArray(int s, boolean empty) {
+        this.size = s;
         if (!empty) {
-            this.size = s;
             fillArray(this.size);
         }
     }

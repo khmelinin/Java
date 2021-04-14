@@ -58,6 +58,18 @@ public class TeacherController {
 
     }
 
+    private void checkSaveTmp(String s) {
+        try {
+            String yn = InputUtility.inputSaveTmp(view);
+            TeacherValidator.ValidateYesNo(yn);
+            if (yn.equals("Y") || yn.equals("y") || yn.equals("Yes") || yn.equals("yes")) {
+                TeacherFile.SaveTmp(s);
+                view.printMessage(TeacherView.FILE_SAVED);
+            }
+        } catch (WrongInputException ex) {
+            view.printMessage(ex.getMessage());
+        }
+    }
 
     private void findByCathedra() {
         try {
@@ -117,8 +129,7 @@ public class TeacherController {
             );
         } catch (WrongInputException ex) {
             view.printMessage(ex.getMessage());
-        }
-        catch (WrongDisciplineException ex) {
+        } catch (WrongDisciplineException ex) {
             view.printMessage(ex.getMessage());
         }
     }
@@ -133,7 +144,9 @@ public class TeacherController {
         if (tmp.getSize() == 0 || tmp.getArray() == null) {
             throw new NothingFoundException();
         } else {
-            view.printTeachers(TeacherConverter.convertTeacherArrayToString(tmp));
+            String s[][] = TeacherConverter.convertTeacherArrayToString(tmp);
+            view.printTeachers(s);
+            checkSaveTmp(TeacherConverter.convertTeachersStringDoubleArrayToString(s));
         }
     }
 

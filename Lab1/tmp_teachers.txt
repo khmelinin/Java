@@ -1,0 +1,4 @@
+Surname         Name            Patronymic      Gender          Disciplines             Cathedra        Post            
+------------------------------------------------------------------------------------------------------------------------------------
+Rmnpubh         Mxigeip         Kmmbjcn         Male            Math, DevOps            TK              Scientific director
+S               N               P               Female          Math, -                 TK              Docent          

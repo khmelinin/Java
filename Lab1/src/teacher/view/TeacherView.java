@@ -16,6 +16,7 @@ public class TeacherView {
     public static final String FILE_SAVED = "Teacher file saved";
     public static final String NO_RESULTS = "Nothing was found";
     public static final String CREATE_TEACHERS = "Teachers was created";
+    public static final String SAVE_TMP = "Do you want to save results (y/n) ?";
 
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_GREEN = "\u001B[32m";

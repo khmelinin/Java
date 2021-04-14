@@ -22,6 +22,11 @@ public class InputUtility {
         }
     }
 
+    public static String inputSaveTmp(TeacherView view) {
+        view.printMessage(TeacherView.SAVE_TMP);
+        return sc.next();
+    }
+
     public static String inputNameWithScanner(TeacherView view) {
         view.printMessage(TeacherView.INPUT_STRING_NAME_DATA);
         return sc.next();

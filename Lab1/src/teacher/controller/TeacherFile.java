@@ -3,10 +3,7 @@ package teacher.controller;
 import teacher.model.TeacherArray;
 import teacher.view.TeacherView;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 
 public class TeacherFile {
     static TeacherView tv = new TeacherView();
@@ -19,7 +16,17 @@ public class TeacherFile {
         catch(Exception ex){
             tv.printMessage(ex.getMessage());
         }
+    }
 
+    static void SaveTmp(String s){
+        try(FileWriter writer = new FileWriter("tmp_teachers.txt", false))
+        {
+            writer.write(s);
+            writer.flush();
+        }
+        catch(IOException ex){
+            tv.printMessage(ex.getMessage());
+        }
     }
 
     static TeacherArray Load() {

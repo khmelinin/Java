@@ -7,23 +7,32 @@ import teacher.model.TeacherArray;
 import teacher.model.TeacherModel;
 import teacher.service.InputUtility;
 import teacher.view.TeacherConverter;
+import teacher.view.TeacherMesseges;
 import teacher.view.TeacherView;
+
+import java.io.IOException;
 
 public class TeacherController {
     private TeacherModel model;
     private TeacherView view = new TeacherView();
 
     public void startMenu() {
-        view.printMessage(TeacherView.HELLO);
+        view.printMessage(TeacherMesseges.HELLO);
+        try {
+            model = new TeacherModel();
+            view.printMessage(TeacherMesseges.ANSI_GREEN + TeacherMesseges.FILE_LOADED + TeacherMesseges.ANSI_RESET);
+        } catch (IOException | ClassNotFoundException ex) {
 
-        model = new TeacherModel(TeacherFile.Load());
+            view.printMessage(TeacherMesseges.LOAD_ERROR);
+            return;
+        }
 
         while (true) {
-            view.printMessage(TeacherView.MAIN_MENU_SELECT);
+            view.printMessage(TeacherMesseges.MAIN_MENU_SELECT);
             switch (InputUtility.inputIntValueWithScanner(view)) {
                 case 1:
-                    model = new TeacherModel();
-                    view.printMessage(TeacherView.CREATE_TEACHERS);
+                    model.GenerateTeachers();
+                    view.printMessage(TeacherMesseges.CREATE_TEACHERS);
                     break;
                 case 2:
                     view.printTeachers(TeacherConverter.convertTeacherArrayToString(model.getArray()));
@@ -44,14 +53,23 @@ public class TeacherController {
                     addTeacher();
                     break;
                 case 7:
-                    TeacherFile.Save(model.getArray());
+                    try {
+                        TeacherFile.save(model.getArray());
+                        view.printMessage(TeacherMesseges.ANSI_GREEN + TeacherMesseges.FILE_SAVED + TeacherMesseges.ANSI_RESET);
+                    } catch (IOException ex) {
+                        view.printMessage(TeacherMesseges.SAVE_ERROR);
+                    }
                     break;
                 case 8:
-                    TeacherFile.Save(model.getArray());
+                    try {
+                        model.save();
+                    } catch (IOException ex) {
+                        view.printMessage(TeacherMesseges.SAVE_ERROR);
+                    }
                     System.exit(0);
                     break;
                 default:
-                    view.printMessage(TeacherView.WRONG_INPUT_DATA);
+                    view.printMessage(TeacherMesseges.WRONG_INPUT_DATA);
             }
         }
 
@@ -62,9 +80,14 @@ public class TeacherController {
         try {
             String yn = InputUtility.inputSaveTmp(view);
             TeacherValidator.ValidateYesNo(yn);
-            if (yn.equals("Y") || yn.equals("y") || yn.equals("Yes") || yn.equals("yes")) {
-                TeacherFile.SaveTmp(s);
-                view.printMessage(TeacherView.FILE_SAVED);
+            if (yn.toUpperCase().equals("Y") || yn.toUpperCase().equals("YES")) {
+                try {
+                    model.saveTmp();
+                    view.printMessage(TeacherMesseges.ANSI_GREEN + TeacherMesseges.FILE_SAVED_TMP + TeacherMesseges.ANSI_RESET);
+                } catch (IOException ex) {
+                    view.printMessage(ex.getMessage());
+                }
+                view.printMessage(TeacherMesseges.FILE_SAVED);
             }
         } catch (WrongInputException ex) {
             view.printMessage(ex.getMessage());
@@ -75,7 +98,7 @@ public class TeacherController {
         try {
             String c = InputUtility.inputCathedraWithScanner(view);
             var tmp = model.findByCathedra(c);
-            CheckResult(tmp);
+            checkResult(tmp);
         } catch (NothingFoundException ex) {
             view.printMessage(ex.getMessage());
         }
@@ -87,10 +110,8 @@ public class TeacherController {
             String d = InputUtility.inputDisciplineWithScanner(view);
             TeacherValidator.ValidateDiscipline(d);
             var tmp = model.findByDiscipline(d);
-            CheckResult(tmp);
-        } catch (WrongDisciplineException ex) {
-            view.printMessage(ex.getMessage());
-        } catch (NothingFoundException ex) {
+            checkResult(tmp);
+        } catch (WrongDisciplineException | NothingFoundException ex) {
             view.printMessage(ex.getMessage());
         }
 
@@ -102,10 +123,8 @@ public class TeacherController {
             TeacherValidator.ValidateGender(g);
             String p = InputUtility.inputPostWithScanner(view);
             var tmp = model.findByGenderAndPost(g, p);
-            CheckResult(tmp);
-        } catch (WrongInputException ex) {
-            view.printMessage(ex.getMessage());
-        } catch (NothingFoundException ex) {
+            checkResult(tmp);
+        } catch (WrongInputException | NothingFoundException ex) {
             view.printMessage(ex.getMessage());
         }
 
@@ -127,14 +146,12 @@ public class TeacherController {
                     InputUtility.inputCathedraWithScanner(view),
                     InputUtility.inputPostWithScanner(view)
             );
-        } catch (WrongInputException ex) {
-            view.printMessage(ex.getMessage());
-        } catch (WrongDisciplineException ex) {
+        } catch (WrongInputException | WrongDisciplineException ex) {
             view.printMessage(ex.getMessage());
         }
     }
 
-    private void CheckResult(TeacherArray tmp) {
+    private void checkResult(TeacherArray tmp) {
 //        if (tmp.getSize() == 0 || tmp.getArray() == null) {
 //            view.printMessage(TeacherView.NO_RESULTS);
 //        } else {
@@ -144,7 +161,7 @@ public class TeacherController {
         if (tmp.getSize() == 0 || tmp.getArray() == null) {
             throw new NothingFoundException();
         } else {
-            String s[][] = TeacherConverter.convertTeacherArrayToString(tmp);
+            String[][] s = TeacherConverter.convertTeacherArrayToString(tmp);
             view.printTeachers(s);
             checkSaveTmp(TeacherConverter.convertTeachersStringDoubleArrayToString(s));
         }

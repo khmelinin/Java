@@ -1,22 +1,41 @@
 package com.company;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class Main {
 
     public static void main(String[] args) {
-        HashMap<String, int[]> students = new HashMap<String, int[]>();
-        students.put(randomString(6), new int[]{new Random().nextInt(11) + 1, new Random().nextInt(11) + 1, new Random().nextInt(11) + 1});
-        students.put(randomString(6), new int[]{new Random().nextInt(11) + 1, new Random().nextInt(11) + 1, new Random().nextInt(11) + 1});
-        students.put(randomString(6), new int[]{new Random().nextInt(11) + 1, new Random().nextInt(11) + 1, new Random().nextInt(11) + 1});
-        students.put(randomString(6), new int[]{new Random().nextInt(11) + 1, new Random().nextInt(11) + 1, new Random().nextInt(11) + 1});
-        for (HashMap.Entry<String, int[]> item : students.entrySet()) {
+        Map<String, int[]> students = new HashMap<String, int[]>();
+
+        students.put(randomString(6), new int[]{new Random().nextInt(12) + 1, new Random().nextInt(12) + 1, new Random().nextInt(12) + 1});
+        students.put(randomString(6), new int[]{new Random().nextInt(12) + 1, new Random().nextInt(12) + 1, new Random().nextInt(12) + 1});
+        students.put(randomString(6), new int[]{new Random().nextInt(12) + 1, new Random().nextInt(12) + 1, new Random().nextInt(12) + 1});
+        students.put(randomString(6), new int[]{new Random().nextInt(12) + 1, new Random().nextInt(12) + 1, new Random().nextInt(12) + 1});
+        students.put(randomString(6), new int[]{new Random().nextInt(12) + 1, new Random().nextInt(12) + 1, new Random().nextInt(12) + 1});
+        students.put(randomString(6), new int[]{new Random().nextInt(12) + 1, new Random().nextInt(12) + 1, new Random().nextInt(12) + 1});
+        students.put(randomString(6), new int[]{new Random().nextInt(12) + 1, new Random().nextInt(12) + 1, new Random().nextInt(12) + 1});
+        students.put(randomString(6), new int[]{new Random().nextInt(12) + 1, new Random().nextInt(12) + 1, new Random().nextInt(12) + 1});
+        students.put(randomString(6), new int[]{new Random().nextInt(12) + 1, new Random().nextInt(12) + 1, new Random().nextInt(12) + 1});
+        students.put(randomString(6), new int[]{new Random().nextInt(12) + 1, new Random().nextInt(12) + 1, new Random().nextInt(12) + 1});
+        students.put(randomString(6), new int[]{new Random().nextInt(12) + 1, new Random().nextInt(12) + 1, new Random().nextInt(12) + 1});
+        students.put(randomString(6), new int[]{new Random().nextInt(12) + 1, new Random().nextInt(12) + 1, new Random().nextInt(12) + 1});
+        students.put(randomString(6), new int[]{new Random().nextInt(12) + 1, new Random().nextInt(12) + 1, new Random().nextInt(12) + 1});
+        students.put(randomString(6), new int[]{new Random().nextInt(12) + 1, new Random().nextInt(12) + 1, new Random().nextInt(12) + 1});
+
+        for (Map.Entry<String, int[]> item : students.entrySet()){
+            System.out.println(item.getKey() + ": "+ Arrays.toString(item.getValue()));
+        }
+        System.out.println();
+
+        for (Map.Entry<String, int[]> item : students.entrySet()) {
             if (abs_1(item.getValue()) < 4.0) {
-                System.out.print(item.getKey() + ": ");
-                for (int i = 0; i < item.getValue().length; i++) {
-                    System.out.print(item.getValue()[i] + ", ");
-                }
+                System.out.print(item.getKey() + ": "+ Arrays.toString(item.getValue()));
+//                for (int i = 0; i < item.getValue().length; i++) {
+//                    System.out.print(item.getValue()[i] + ", ");
+//                }
                 System.out.printf("\n");
             }
         }

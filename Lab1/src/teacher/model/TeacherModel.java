@@ -1,12 +1,22 @@
 package teacher.model;
 
+import teacher.controller.TeacherFile;
+import teacher.view.TeacherConverter;
+
+import java.io.IOException;
+
 public class TeacherModel {
 
     private TeacherArray array;
 
-    public TeacherModel() {
+    public TeacherModel() throws IOException, ClassNotFoundException {
+        array = TeacherFile.load();
+    }
+
+    public void GenerateTeachers() {
         array = new TeacherArray(10, false);
     }
+
 
     public TeacherArray getArray() {
         return array;
@@ -59,5 +69,13 @@ public class TeacherModel {
         }
         return tmp;
 
+    }
+
+    public void save() throws IOException {
+        TeacherFile.save(array);
+    }
+
+    public void saveTmp() throws IOException {
+        TeacherFile.saveTmp(TeacherConverter.convertTeachersToString(array));
     }
 }

@@ -1,8 +1,9 @@
 package teacher.model;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
-public class TeacherArray {
+public class TeacherArray implements Serializable {
     private int size = 0;
     private int maxsize = 30;
     private Teacher[] teacherArray = new Teacher[maxsize];

@@ -1,8 +1,9 @@
 package teacher.model;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
-public class Teacher {
+public class Teacher implements Serializable {
 
     private String surname;
     private String name;

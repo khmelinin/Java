@@ -17,9 +17,6 @@ public class TeacherModel {
         array = new TeacherArray(10, false);
     }
 
-    public TeacherModel(TeacherArray ta) {
-        array = ta;
-    }
 
     public TeacherArray getArray() {
         return array;

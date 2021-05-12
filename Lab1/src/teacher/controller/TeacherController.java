@@ -79,13 +79,13 @@ public class TeacherController {
     private void checkSaveTmp(String s) {
         try {
             String yn = InputUtility.inputSaveTmp(view);
-            TeacherValidator.ValidateYesNo(yn);
+            TeacherValidator.validateYesNo(yn);
             if (yn.toUpperCase().equals("Y") || yn.toUpperCase().equals("YES")) {
                 try {
                     model.saveTmp();
                     view.printMessage(TeacherMesseges.ANSI_GREEN + TeacherMesseges.FILE_SAVED_TMP + TeacherMesseges.ANSI_RESET);
                 } catch (IOException ex) {
-                    view.printMessage(ex.getMessage());
+                    view.printMessage(TeacherMesseges.SAVE_ERROR);
                 }
                 view.printMessage(TeacherMesseges.FILE_SAVED);
             }
@@ -100,7 +100,7 @@ public class TeacherController {
             var tmp = model.findByCathedra(c);
             checkResult(tmp);
         } catch (NothingFoundException ex) {
-            view.printMessage(ex.getMessage());
+            view.printMessage(TeacherMesseges.NO_RESULTS);
         }
     }
 
@@ -108,11 +108,14 @@ public class TeacherController {
     private void findByDiscipline() {
         try {
             String d = InputUtility.inputDisciplineWithScanner(view);
-            TeacherValidator.ValidateDiscipline(d);
+            TeacherValidator.validateDiscipline(d);
             var tmp = model.findByDiscipline(d);
             checkResult(tmp);
-        } catch (WrongDisciplineException | NothingFoundException ex) {
-            view.printMessage(ex.getMessage());
+        } catch (WrongDisciplineException ex) {
+            view.printMessage(TeacherMesseges.WRONG_INPUT_DISCIPLINE_DATA);
+        }
+        catch(NothingFoundException ex) {
+            view.printMessage(TeacherMesseges.NO_RESULTS);
         }
 
     }
@@ -120,22 +123,24 @@ public class TeacherController {
     private void findByGenderAndPost() {
         try {
             String g = InputUtility.inputGenderWithScanner(view);
-            TeacherValidator.ValidateGender(g);
+            TeacherValidator.validateGender(g);
             String p = InputUtility.inputPostWithScanner(view);
             var tmp = model.findByGenderAndPost(g, p);
             checkResult(tmp);
-        } catch (WrongInputException | NothingFoundException ex) {
-            view.printMessage(ex.getMessage());
+        } catch (WrongInputException ex) {
+            view.printMessage(TeacherMesseges.WRONG_INPUT_DATA);
         }
-
+        catch(NothingFoundException ex) {
+            view.printMessage(TeacherMesseges.NO_RESULTS);
+        }
     }
 
     private void addTeacher() {
         try {
             String g = InputUtility.inputGenderWithScanner(view);
-            TeacherValidator.ValidateGender(g);
+            TeacherValidator.validateGender(g);
             String d1 = InputUtility.inputDisciplineWithScanner(view);
-            TeacherValidator.ValidateDiscipline(d1);
+            TeacherValidator.validateDiscipline(d1);
             String d2 = InputUtility.inputDisciplineWithScanner(view);
             model.addTeacher(
                     InputUtility.inputSurnameWithScanner(view),
